@@ -1,5 +1,8 @@
-(ns clojure-noob.uredno)
+(ns clojure-noob.uredno
+  (:require [uncomplicate.fluokitten.core :as fk])
+  (use 'criterium.core))
 
+(println (fk/fmap inc (fk/just 1)))
 
 (defn desc [a b] ; nasao sam na guglu kako se sortira od najveceg ka najmanjem.
   (compare b a))
@@ -68,3 +71,4 @@
   (leaderboard users)
   (def micko (make-user "Micko"))
   (def micko (add-xp micko 40)))
+(println all-levels)
