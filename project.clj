@@ -6,11 +6,23 @@
   :dependencies [[org.clojure/clojure "1.12.2"]
                  [criterium "0.4.6"]
                  [uncomplicate/fluokitten "0.10.0"]
-
+                 [uncomplicate/neanderthal "0.60.0"]
                  ]
   :plugins [[lein-midje "3.2.2"]]
   :main ^:skip-aot clojure-noob.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all
-                       :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
-             :dev {:dependencies [[midje "1.10.10"]]}})
+  :profiles {:dev [[:dev/all ~(leiningen.core.utils/get-os)]
+             {:dependencies [[midje "1.10.10"]]}]
+
+
+             :dev/all {:dependencies [
+                                      [org.bytedeco/openblas "0.3.30-1.5.12"]]}
+             :windows {:dependencies [[org.bytedeco/mkl "2025.2-1.5.12" :classifier "windows-x86_64-redist"]
+                                      ;; optional, if you want GPU computing with CUDA. Beware: the size of these 2 jars is cca 800 MB.
+                                      #_[org.bytedeco/cuda-redist "13.0-9.14-1.5.13-20251022.164318-20" :classifier "windows-x86_64"]
+                                      #_[org.bytedeco/cuda-redist-cublas "13.0-9.14-1.5.13-20251022.164318-20" :classifier "windows-x86_64"]]}
+             }
+  :repl-options {:init-ns matrix-operations.core}
+  )
+
+

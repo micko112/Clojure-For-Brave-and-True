@@ -1,6 +1,10 @@
 (ns clojure-noob.uredno
-  (:require [uncomplicate.fluokitten.core :as fk])
-  (use 'criterium.core))
+  (:require [uncomplicate.fluokitten.core :as fk]
+            [uncomplicate.neanderthal
+             [core :refer :all]
+             [native :refer :all]]
+            )
+  )
 
 (println (fk/fmap inc (fk/just 1)))
 
@@ -72,3 +76,6 @@
   (def micko (make-user "Micko"))
   (def micko (add-xp micko 40)))
 (println all-levels)
+
+(defn -main [& args]
+  (println "Radi"))
