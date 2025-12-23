@@ -1,13 +1,16 @@
 (ns clojure-noob.deep-learning
   (:require [uncomplicate.fluokitten.core :as fk]
-            [uncomplicate.commons.core :refer [with-release]]
+            [uncomplicate.commons.core :refer [with-release let-release Releaseable release]]
             [uncomplicate.neanderthal
-             [core :refer :all]
-             [native :refer :all]
+             [core :refer [mv! axpy! scal! transfer!]]
+             [native :refer [dv dge]]
              [math :refer [signum exp]]
-             [vect-math :refer [fmax! tanh! linear-frac!]]]
+             [vect-math :refer [fmax! tanh! linear-frac!]]
+             ]
+            [criterium.core :refer [quick-bench]]
 
-            ))
+            )
+  )
 
 (def a (dge 2 3 [1 2 3 4 5 6]))
 (def b (dge 3 2 [1 3 5 7 9 11]))
@@ -62,3 +65,33 @@
   (axpy! -1.0 threshold (fmax! threshold x x)))
 
 (relu! bias (mv w1 x))
+
+(tanh! (axpy! -1.0 bias (mv w1 x)))
+
+(defn sigmoid! [x]
+  (linear-frac! 0.5 (tanh! (scal! 0.5 x)) 0.5))
+
+(sigmoid! (axpy! -1.0 bias (mv w1 x)))
+(import 'clojure.lang.IFn)
+
+(defprotocol Parameters
+  (weight [this])
+  (bias [this]))
+
+(deftype FullyConnectedInference [w b h activ-fn]
+  Releaseable (release [_]
+                (release w)
+                (release b)
+                (release h))
+  Parameters
+  (weight [this] w)
+  (bias [this] b)
+  IFn
+  (invoke [_ x]
+    (activ-fn b (mv! w x h)))
+  )
+(defn fully-connected [activ-fn in-dim out-dim]
+  (let-release [w (dge out-dim in-dim)
+                bias (dv out-dim)
+                h (dv out-dim)]
+               (->FullyConnectedInference w bias h activ-fn)))
