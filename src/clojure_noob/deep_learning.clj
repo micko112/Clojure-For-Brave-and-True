@@ -57,3 +57,8 @@
 (def bias (dv 0.7 0.2 1.1 2))
 (def zero (dv 4))
 (step! bias (mv w1 x))
+
+(defn relu! [threshold x]
+  (axpy! -1.0 threshold (fmax! threshold x x)))
+
+(relu! bias (mv w1 x))
