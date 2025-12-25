@@ -68,7 +68,11 @@
    :level 0})
 (defn add-xp [user xp]
   (update user :xp + xp))
-
+(defn add-xp-atom [user xp]
+  (swap! user :xp + xp))
+(def micko (atom {
+                  {:name "Micko" :xp 0 :level 0}
+                  }))
 (comment
   (vec-set-levels users)
   (users-by-level (vec-set-levels users) users)

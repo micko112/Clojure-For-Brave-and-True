@@ -7,6 +7,7 @@
                  [criterium "0.4.6"]
                  [uncomplicate/fluokitten "0.10.0"]
                  [uncomplicate/neanderthal "0.60.0"]
+                 [metosin/malli "0.20.0"]
                  ]
   :plugins [[lein-midje "3.2.2"]]
   :main ^:skip-aot clojure-noob.core

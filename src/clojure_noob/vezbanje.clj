@@ -33,5 +33,16 @@
 (defn -main []
   (take-column mat2 2))
 
-(str/split "racecar")
+(deftype Person [id first-name last-name])
+(def person1 (Person.
+               100 "mic" "mitic"
+               ))
 
+(def pera {:balance 100
+ :name "Pera"
+ })
+
+(def mika {:balance 50
+ :name "Mika"})
+(defn transfer [amount from to]
+  (- (:balance from) amount))
