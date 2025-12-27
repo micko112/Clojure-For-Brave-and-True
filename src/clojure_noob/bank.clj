@@ -1,6 +1,7 @@
 (ns clojure-noob.bank
   (:require [malli.core :as m]
-            [malli.error :as me]))
+            [malli.error :as me]
+            [next.jdbc :as jdbc]))
 
 
 ;; Credit adds money to user's balance

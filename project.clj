@@ -8,6 +8,8 @@
                  [uncomplicate/fluokitten "0.10.0"]
                  [uncomplicate/neanderthal "0.60.0"]
                  [metosin/malli "0.20.0"]
+                 [com.github.seancorfield/next.jdbc "1.3.1086"]
+                 [org.clojure/core.async "1.8.741"]
                  ]
   :plugins [[lein-midje "3.2.2"]]
   :main ^:skip-aot clojure-noob.core
