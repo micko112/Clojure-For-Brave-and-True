@@ -33,6 +33,7 @@
 
 (def db (d/db conn))
 
+
 (def all-data-from-1985 '[:find ?title ?year ?genre
                           :where [?e :movie/title ?title]
                                   [?e :movie/release-year ?year]
@@ -54,4 +55,8 @@
                  :where [?e :movie/title "Commando"]]
                db)))
 (def old-db (d/as-of db 13194139534317))
-(def db-history (d/his))
+(def db-history (d/history db))
+
+(defn add-movie [name genre year] @(d/transact conn [{:movie/title name
+                                                      :movie/genre genre
+                                                      :movie/release-year year}]))
