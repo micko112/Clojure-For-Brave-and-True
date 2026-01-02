@@ -10,7 +10,7 @@
                  [metosin/malli "0.20.0"]
                  [com.github.seancorfield/next.jdbc "1.3.1086"]
                  [org.clojure/core.async "1.8.741"]
-                 ]
+                 [com.datomic/datomic-pro "1.0.7469"]]
   :plugins [[lein-midje "3.2.2"]]
   :main ^:skip-aot clojure-noob.core
   :target-path "target/%s"
